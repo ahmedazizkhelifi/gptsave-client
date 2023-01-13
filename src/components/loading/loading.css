@@ -1,0 +1,45 @@
+.loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.loading-span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-span :last-child {
+  margin-top: 20px;
+}
+
+.loading-logo {
+  margin-bottom: -3rem;
+  width: 150px;
+  height: 150px;
+  -webkit-animation: load 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  animation: load 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+  /*   animation-name: rotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear; */
+}
+
+@keyframes load {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(2);
+    transform: scale(2);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
