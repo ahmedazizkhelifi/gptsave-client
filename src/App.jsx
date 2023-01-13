@@ -1,16 +1,14 @@
 import "./App.css"
-import Broh from "./components/broh"
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Notfound, Landing } from "./pages"
 function App() {
   return (
-    <div className="App">
-      <Broh />
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="*" element={<Notfound />} />
+      </Routes>
+    </Router>
   )
 }
 
