@@ -5,6 +5,7 @@
   scroll-behavior: smooth;
   font-family: var(--font-family);
   color: #fff;
+  background-color: var(--color-bg) !important;
 }
 
 body {
