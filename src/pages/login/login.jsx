@@ -5,7 +5,8 @@ import Cookies from "js-cookie"
 import "./login.css"
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null)
-  const [data, setData] = useState(null)
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
 
   const login = () => {
     console.log(`${process.env.REACT_APP_AUTH_HOST}/auth/login`)
@@ -14,7 +15,7 @@ const Login = () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ username: "aziz", password: "aziz" })
+      body: JSON.stringify({ username: username, password: password })
     })
       .then((response) => {
         if (response.status === 200) {
@@ -46,8 +47,20 @@ const Login = () => {
             <h1>Login</h1>
           </div>
           <div className="login__card-content">
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
+            <input
+              type="text"
+              placeholder="Username"
+              onChange={(e) => {
+                setUsername(e.target.value)
+              }}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => {
+                setPassword(e.target.value)
+              }}
+            />
             <div className="login__card-message">{errorMessage}</div>
             <div className="login__card-buttons navbar-sign">
               <button onClick={login}>Login</button>

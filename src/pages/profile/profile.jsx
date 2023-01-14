@@ -12,16 +12,10 @@ const Profile = () => {
   const [chatRecords, setChatRecords] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [name, setName] = useState("Loading ...")
 
   const { decodedToken, isExpired } = useJwt(Cookies.get("token"))
   useEffect(() => {
-    if (!userId) {
-      if (decodedToken && !isExpired) {
-        console.log(decodedToken)
-        window.location.href = `/profile/${decodedToken.userId}`
-      }
-      //  userId = "id-aziz"
-    }
     fetch(`${process.env.REACT_APP_DB_HOST}/api/owner/${userId}`)
       .then((response) => {
         if (response.status === 200) {
@@ -41,7 +35,39 @@ const Profile = () => {
         setLoading(false)
         setChatIds({ error: "failed" })
       })
-  }, [decodedToken, isExpired, userId])
+
+    fetch(`${process.env.REACT_APP_AUTH_HOST}/auth/user/${userId}`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          throw new Error(response.status)
+        }
+      })
+      .then((data) => {
+        console.log(data)
+        setName(data?.item?.name)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log(error)
+        setError(true)
+        setLoading(false)
+        setChatIds({ error: "failed" })
+      })
+  }, [userId])
+  useEffect(() => {
+    if (!userId) {
+      if (decodedToken && !isExpired) {
+        setName(decodedToken.name)
+        console.log(decodedToken)
+        window.location.href = `/profile/${decodedToken.userId}`
+      } else {
+        window.location.href = `/login`
+      }
+      //  userId = "id-aziz"
+    }
+  }, [userId, decodedToken, isExpired])
 
   useEffect(() => {
     chatIds.map((chatId, index) => {
@@ -67,7 +93,7 @@ const Profile = () => {
 
   return (
     <>
-      <SEO title={"data?.title" ?? "Loading ..."} />
+      <SEO title={name ?? "Loading ..."} />
       <Navbar />
       {loading ? (
         <Loading />
@@ -75,29 +101,29 @@ const Profile = () => {
         <Notfound />
       ) : (
         <main className="profile section__padding section__margin">
-          <h1>Prfile user name</h1>
-          <div>Details (id...)</div>
-          {/* {chatIds.map((item, index) => {
-            return <div key={index}>{item}</div>
-          })} */}
-          <div className="chat-list">
-            <div className="chat-list-group">
-              {chatRecords.map((item, index) => {
-                // return <div key={index}>{item.title}</div>
-                return (
-                  <ChatCard
-                    key={index}
-                    title={item.title}
-                    tags={item.tags}
-                    handleClick={() => {
-                      //   console.log(item)
-                      window.location = `/chat/${item.id}`
-                    }}
-                  />
-                )
-              })}
+          <h1>{name}</h1>
+          {chatRecords.length === 0 ? (
+            <div className="chat-no-items">No items to show</div>
+          ) : (
+            <div className="chat-list">
+              <div className="chat-list-group">
+                {chatRecords.map((item, index) => {
+                  // return <div key={index}>{item.title}</div>
+                  return (
+                    <ChatCard
+                      key={index}
+                      title={item.title}
+                      tags={item.tags}
+                      handleClick={() => {
+                        //   console.log(item)
+                        window.location = `/chat/${item.id}`
+                      }}
+                    />
+                  )
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </main>
       )}
     </>
