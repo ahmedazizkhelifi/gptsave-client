@@ -12,7 +12,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     // request a page
-    fetch(`http://localhost:3010/api/chat/${chatId}`)
+    fetch(`${process.env.REACT_APP_BACK_HOST}/api/chat/${chatId}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json()
@@ -64,13 +64,20 @@ const Chat = () => {
         ) : (
           <>
             <h2>{data?.title ?? "Loading ..."}</h2>
-            <p>
-              By: <strong>{data?.owner}</strong>
-            </p>
+            {data?.owner && (
+              <p>
+                By:{" "}
+                <strong>
+                  <a
+                    href={`/profile/${data?.owner}`}
+                    // target="_blank"
+                    rel="noopener noreferrer">
+                    aze
+                  </a>
+                </strong>
+              </p>
+            )}
             {data?.tags?.map((tag, index) => (
-              // <span key={index} className="tag">
-              //   {tag}
-              // </span>
               <Tag
                 style={{ marginLeft: 10 }}
                 key={index}
