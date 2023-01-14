@@ -1,0 +1,28 @@
+.tag {
+  display: inline-block;
+  border-radius: 1em;
+  font-size: 11px;
+  line-height: 12px;
+  font-weight: 700;
+  vertical-align: center;
+  padding: 4px 12px;
+}
+
+.one {
+  background-color: #bfb0ff !important;
+  color: #3f3a55;
+}
+
+.two {
+  background: #e7fdd8 !important;
+  color: #66bf3c;
+}
+.three {
+  background-color: #7db1fc !important;
+  color: #fff;
+}
+
+.damaged {
+  background-color: #ffcfcf;
+  color: #e61919;
+}
