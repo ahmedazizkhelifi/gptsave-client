@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Navbar, Loading, ChatCard } from "../../components"
+import { Navbar, Loading, ChatCard, SEO } from "../../components"
 import { Notfound } from "../../pages"
+import { useJwt } from "react-jwt"
+import Cookies from "js-cookie"
+
 import "./profile.css"
 const Profile = () => {
-  const { userId } = useParams()
+  var { userId } = useParams()
   const [chatIds, setChatIds] = useState([])
   const [chatRecords, setChatRecords] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
+  const { decodedToken, isExpired } = useJwt(Cookies.get("token"))
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BACK_HOST}/api/owner/${userId}`)
+    if (!userId) {
+      if (decodedToken && !isExpired) {
+        console.log(decodedToken)
+        window.location.href = `/profile/${decodedToken.userId}`
+      }
+      //  userId = "id-aziz"
+    }
+    fetch(`${process.env.REACT_APP_DB_HOST}/api/owner/${userId}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json()
@@ -30,11 +41,11 @@ const Profile = () => {
         setLoading(false)
         setChatIds({ error: "failed" })
       })
-  }, [])
+  }, [decodedToken, isExpired, userId])
 
   useEffect(() => {
     chatIds.map((chatId, index) => {
-      fetch(`${process.env.REACT_APP_BACK_HOST}/api/chat/${chatId}`)
+      fetch(`${process.env.REACT_APP_DB_HOST}/api/chat/${chatId}`)
         .then((response) => {
           if (response.status === 200) {
             return response.json()
@@ -56,6 +67,7 @@ const Profile = () => {
 
   return (
     <>
+      <SEO title={"data?.title" ?? "Loading ..."} />
       <Navbar />
       {loading ? (
         <Loading />

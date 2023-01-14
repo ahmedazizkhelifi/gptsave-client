@@ -1,31 +1,47 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri"
 import "./navbar.css"
-import logo from "../../assets/logo.jpeg"
-const Menu = () => {
-  return (
-    <>
-      <p>
-        <a href="#home">Acceuil</a>
-      </p>
-      <p>
-        <a href="#services">Nos services</a>
-      </p>
-      <p>
-        <a href="#team">L'équipe</a>
-      </p>
-      <p>
-        <a href="#partenaires">Nos partenaires</a>
-      </p>
-      <p>
-        <a href="#articles">Articles</a>
-      </p>
-    </>
-  )
-}
-const Navbar = () => {
-  const [toggleMenu, setToggleMenu] = useState(false)
+import Cookies from "js-cookie"
 
+import logo from "../../assets/logo.jpeg"
+
+const Navbar = () => {
+  useEffect(() => {
+    const token = Cookies.get("token")
+    setIsLoggedIn(!!token)
+    return () => {}
+  }, [])
+  const [toggleMenu, setToggleMenu] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const Menu = () => {
+    return (
+      <>
+        <p>
+          <a href="/">Home</a>
+        </p>
+        <p>
+          <a href="/explore">Explore</a>
+        </p>
+        <p>
+          <a href="/profile">Profile</a>
+        </p>
+        <p>
+          {isLoggedIn ? (
+            <a
+              onClick={() => {
+                Cookies.remove("token")
+              }}
+              href="/">
+              Logout
+            </a>
+          ) : (
+            <a href="/login">Login</a>
+          )}
+        </p>
+      </>
+    )
+  }
   return (
     <div className="tt ">
       <div className="navbar">
@@ -39,7 +55,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-sign">
           <button type="button">
-            <a href="#contact-us">Contactez-nous </a>
+            <a href="/contact-us">Contact-us </a>
           </button>
         </div>
         <div className="navbar-menu">

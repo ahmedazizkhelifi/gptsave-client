@@ -12,7 +12,7 @@ const Chat = () => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     // request a page
-    fetch(`${process.env.REACT_APP_BACK_HOST}/api/chat/${chatId}`)
+    fetch(`${process.env.REACT_APP_DB_HOST}/api/chat/${chatId}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json()
