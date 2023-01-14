@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Navbar, Loading, Tag } from "../../components"
+import { Navbar, Loading, Tag, SEO } from "../../components"
 import { Notfound } from "../../pages"
 import "./chat.css"
 import "./global-chat.css"
@@ -22,6 +22,7 @@ const Chat = () => {
       })
       .then((data) => {
         console.log(data)
+
         setData(data)
       })
       .catch((error) => {
@@ -49,6 +50,7 @@ const Chat = () => {
 
   return (
     <>
+      <SEO title={data?.title ?? "Loading ..."} />
       <Navbar />
       <div className="chat section__margin section__padding">
         {/* 
