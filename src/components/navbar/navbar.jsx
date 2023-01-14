@@ -47,7 +47,13 @@ const Navbar = () => {
       <div className="navbar">
         <div className="navbar-links">
           <div className="navbar-links_logo">
-            <img src={logo} alt="logo" />
+            <img
+              src={logo}
+              alt="logo"
+              onClick={() => {
+                document.location.href = "/"
+              }}
+            />
           </div>
           <div className="navbar-links_container">
             <Menu />
