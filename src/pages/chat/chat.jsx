@@ -72,7 +72,7 @@ const Chat = () => {
                     href={`/profile/${data?.owner}`}
                     // target="_blank"
                     rel="noopener noreferrer">
-                    aze
+                    {data?.owner}
                   </a>
                 </strong>
               </p>
@@ -85,7 +85,10 @@ const Chat = () => {
                 tagType="three"
               />
             ))}
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <div
+              className="chat__content"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
           </>
         )}
       </div>
