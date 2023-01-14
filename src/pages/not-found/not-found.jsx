@@ -2,12 +2,12 @@ import React from "react"
 import { SEO } from "../../components"
 import "./not-found.css"
 
-const Notfound = () => {
+const Notfound = ({ title }) => {
   return (
     <>
       <SEO
-        title="Page not found | Melkart JE"
-        description="Page non trouvée. 404"
+        title={`${title ? title : "Page not found"} | GPTSave`}
+        description="Page not found. 404"
       />
 
       <div className="contain">
@@ -17,15 +17,11 @@ const Notfound = () => {
           <div>
             <h1>Page not found</h1>
             <h2 className="col-9">
-              <em>Désolé</em> 😔— Nous n'avons pas pu trouver ce que vous
-              cherchiez
+              <em>Sorry </em> 😔— we couldn't find what you were looking for.
             </h2>
             <p>
-              <strong>
-                Vous avez besoin d'aide pour trouver quelque chose ?
-              </strong>{" "}
-              <br /> Envoyez un courriel à contact@projet-soc.tn et nous vous
-              aiderons.
+              <strong>Need help finding something?</strong> <br /> Email
+              contact@projet-soc.tn and we'll help you.
             </p>
             <a href="/">Accueil</a>
           </div>
