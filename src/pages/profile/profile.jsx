@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Navbar, Loading } from "../../components"
+import { Navbar, Loading, ChatCard } from "../../components"
 import { Notfound } from "../../pages"
+import "./profile.css"
 const Profile = () => {
   const { userId } = useParams()
   const [chatIds, setChatIds] = useState([])
@@ -67,9 +68,24 @@ const Profile = () => {
           {/* {chatIds.map((item, index) => {
             return <div key={index}>{item}</div>
           })} */}
-          {chatRecords.map((item, index) => {
-            return <div key={index}>{item.title}</div>
-          })}
+          <div className="chat-list">
+            <div className="chat-list-group">
+              {chatRecords.map((item, index) => {
+                // return <div key={index}>{item.title}</div>
+                return (
+                  <ChatCard
+                    key={index}
+                    title={item.title}
+                    tags={item.tags}
+                    handleClick={() => {
+                      //   console.log(item)
+                      window.location = `/chat/${item.id}`
+                    }}
+                  />
+                )
+              })}
+            </div>
+          </div>
         </main>
       )}
     </>
