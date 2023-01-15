@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import "./explore.css"
-import { Navbar, ChatCard } from "../../components"
+import { Navbar, ChatCard, SEO } from "../../components"
 const Explore = () => {
   const [offset, setOffset] = useState(0)
   const [data, setData] = useState([])
@@ -31,6 +31,8 @@ const Explore = () => {
   return (
     <>
       <Navbar />
+      <SEO title="Explore | GPTSave" />
+
       <div className="explore section__margin section__padding">
         <h1>Latest chats</h1>
         <div className="chat-list">

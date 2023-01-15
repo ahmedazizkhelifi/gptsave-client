@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Navbar } from "../../components"
+import { Navbar, SEO } from "../../components"
 import Cookies from "js-cookie"
 
 import "./login.css"
@@ -75,6 +75,8 @@ const Login = () => {
   return (
     <>
       <Navbar />
+      <SEO title={`${showLogin ? "Login | GPTSave" : "Signup | GPTSave"}`} />
+
       <div className="login section__margin section__padding">
         <div className="login__card">
           <div className="login__card-title">

@@ -38,7 +38,11 @@ const Chat = () => {
         }
       })
       .then((data) => {
-        setContent(data)
+        let result = data.replaceAll(
+          /\/_next\/image/g,
+          "https://chat.openai.com/_next/image"
+        )
+        setContent(result)
         setLoading(false)
       })
       .catch((error) => {

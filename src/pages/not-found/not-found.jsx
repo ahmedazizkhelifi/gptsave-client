@@ -23,7 +23,7 @@ const Notfound = ({ title }) => {
               <strong>Need help finding something?</strong> <br /> Email
               contact@projet-soc.tn and we'll help you.
             </p>
-            <a href="/">Accueil</a>
+            <a href="/">Home</a>
           </div>
         </div>
       </div>
